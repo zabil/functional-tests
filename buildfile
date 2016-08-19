@@ -100,6 +100,10 @@ task :resolve_dependencies do
   cp _cruise.compile.dependencies.collect { |t| t.to_s }, _cruise.path_to('tempo')
 end
 
+task :dependencies do
+  sh 'mvn clean install -q'
+end
+
 task :build_plugins do
   cd "../#{GO_PLUGINS_DIRNAME}" do
     sh './gradlew assemble -q'
@@ -150,7 +154,7 @@ task :clean do
   rm_rf './target'
 end
 
-task :setup => [:clean, :copy_agent, :copy_server, :copy_plugins] do
+task :setup => [:clean, :dependencies, :copy_agent, :copy_server, :copy_plugins] do
 end
 
 
@@ -159,7 +163,7 @@ task :kill_server do
     system("target\go-server-#{VERSION_NUMBER}\stop-server.bat")
   else
     system("pkill -f cruise.jar")
-    end
+  end
 end
 
 def kill_gauge
