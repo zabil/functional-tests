@@ -48,5 +48,5 @@ namespace :build do
     end
   end
 
-  task :all => [:server, :agent, :api, :addon, :plugins] 
+  task :all => [:clean, :server, :agent, :api, :addon, :plugins] 
 end
